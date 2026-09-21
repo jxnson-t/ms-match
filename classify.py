@@ -12,9 +12,6 @@ INBOX_DIR = SCRIPT_DIR / "inbox"
 OUTPUT_FILE = SCRIPT_DIR / "classifications.json"
 MODEL_NAME = "gemini-3.6-flash"
  
-# Set to None for a real submission — MAX_EMAILS = 15 only classifies the
-# first 15 emails, and compare.py will silently default every other email
-# to GENERAL if it can't find a classification for it.
 MAX_EMAILS = None
 SECONDS_BETWEEN_CALLS = 4.5
 # ---------------------------------------------------------------------------
