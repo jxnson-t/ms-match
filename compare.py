@@ -292,6 +292,11 @@ def main():
             score = inbox.submit(submission)
             print("\nSelf-eval score:")
             print(json.dumps(score, indent=2))
+            score_file = SCRIPT_DIR / "self_eval_score.json"
+            score_file.write_text(json.dumps(score, indent=2))
+            print(f"Wrote {score_file}")
+            # Every time compare.py runs it will update the json file with the latest eval score
+      
         except Exception as e:
             print("Could not self-score:", e)
 
