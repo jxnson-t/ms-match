@@ -3,23 +3,13 @@ Re-attempts ONLY the emails that failed for pipeline reasons (rate limits,
 malformed JSON, timeouts) on a previous compare.py run -- without
 re-running the other ~500 emails or spending API calls on them again.
 
-WHY THIS IS SAFE TO RUN ON A CLEAN SUBMISSION:
-  It only touches entries where status == "NEEDS_REVIEW" and
-  review_reason == "unreadable". A genuinely corrupted document (like the
-  5 real unreadable edge cases) will fail extraction the SAME way every
-  time -- pypdf raises the same exception or returns 0 chars again -- so
-  retrying it just re-confirms NEEDS_REVIEW, harmlessly. Only entries
-  that failed for a TRANSIENT reason (a rate limit blip, a one-off
-  malformed response) will actually change on retry.
-
-HOW TO RUN IT
-  1. Run compare.py first, normally, so submission.json exists.
-  2. Put this file in the same folder as compare.py, loader.py,
-     classifications.json, and submission.json.
-  3. Run:  python retry_failed.py
-  It overwrites submission.json in place with any successfully-recovered
-  entries, and prints a clear before/after tally so you can SEE what it
-  actually changed.
+It only touches entries where status == "NEEDS_REVIEW" and
+review_reason == "unreadable". A genuinely corrupted document (like the
+5 real unreadable edge cases) will fail extraction the SAME way every
+time -- pypdf raises the same exception or returns 0 chars again -- so
+retrying it just re-confirms NEEDS_REVIEW, harmlessly. Only entries
+that failed for a TRANSIENT reason (a rate limit blip, a one-off
+malformed response) will actually change on retry.
 """
 
 import json
