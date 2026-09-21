@@ -13,8 +13,7 @@ WHAT THIS DOES
   4. Writes one submission.json in the required shape
   5. If pointed at a running docker server, self-scores automatically
 
-WHAT CHANGED IN THIS VERSION: the prompt was rewritten to stop
-over-escalating. The self-eval score showed escalation_precision of
+The prompt was rewritten to stop over-escalating. The self-eval score showed escalation_precision of
 0.145 (138 predicted NEEDS_REVIEW vs only 20 true cases) with
 defect_recall of only 0.717 -- the model was hedging into NEEDS_REVIEW
 whenever a field was slightly unusual to parse, instead of confidently
@@ -22,15 +21,6 @@ extracting it. The prompt now explicitly tells it: if you CAN read a
 value, extract it and compare it, even if the wording/format is odd.
 NEEDS_REVIEW is reserved for genuinely absent/corrupted/wrong-type
 documents, not for "this took a bit of effort to parse."
-
-HOW TO RUN IT
-  1. Run classify.py FIRST, with MAX_EMAILS = None, so classifications.json
-     covers every email.
-  2. pip install google-generativeai pypdf openpyxl python-docx
-  3. Set GOOGLE_API_KEY (see aistudio.google.com/apikey)
-  4. Put this file in the SAME folder as loader.py and classifications.json
-  5. Edit DATA_SOURCE below to point at your data
-  6. Run:  python3 compare.py
 """
 
 import os
